@@ -1,6 +1,16 @@
 Frequently asked question
 -------------------------
 
+When installing, I get ``ERROR: Failed building wheel for evdev``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When installing on *Linux*, the *evdev* library is used for the ``uinput``
+backend. There is unfortunately no wheel available, so it is build locally upon
+installation.
+
+This package requires the *Python headers* and *gcc* to be installed.
+
+
 How do I suppress specific events only?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
