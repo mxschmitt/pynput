@@ -18,8 +18,10 @@ When running under *X*, the following must be true:
 
 When running under *uinput*, the following must be true:
 
-*  You must run your script as root, to that is has the required permissions
-   for *uinput*.
+*  You must run your script as root, so that is has the required permissions
+   for *uinput*. Please note that making yourself a member of the ``input``
+   group may not be enough as *pynput* calls the ``dumpkeys`` binary to get a
+   keyboard layout, and this application may need root privileges.
 
 Also please note that the ``injected`` flag is not supported for *uinput*.
 
