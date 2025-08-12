@@ -204,8 +204,8 @@ class Layout(object):
             as_char(key): (
                 vk,
                 set()
-                    | {Key.shift} if i & 1 else set()
-                    | {Key.alt_gr} if i & 2 else set())
+                    | ({Key.shift} if i & 1 else set())
+                    | ({Key.alt_gr} if i & 2 else set()))
             for vk, keys in self._vk_table.items()
             for i, key in enumerate(keys)
             if key is not None and as_char(key) is not None}
