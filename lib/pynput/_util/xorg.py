@@ -95,10 +95,11 @@ def _find_mask(display, symbol):
     modifier_keycode = display.keysym_to_keycode(
         Xlib.XK.string_to_keysym(symbol))
 
-    for index, keycodes in enumerate(display.get_modifier_mapping()):
-        for keycode in keycodes:
-            if keycode == modifier_keycode:
-                return 1 << index
+    if modifier_keycode != 0:
+        for index, keycodes in enumerate(display.get_modifier_mapping()):
+            for keycode in keycodes:
+                if keycode == modifier_keycode:
+                    return 1 << index
 
     return 0
 
