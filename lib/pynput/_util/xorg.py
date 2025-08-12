@@ -321,8 +321,13 @@ def keyboard_mapping(display):
         if not normalized:
             continue
 
+        if group_mask != 0:
+            groups = (False, True)
+        else:
+            groups = tuple(False)
+
         # Iterate over the groups to extract the shift and modifier state
-        for groups, group in zip(normalized, (False, True)):
+        for groups, group in zip(normalized, groups):
             for keysym, shift in zip(groups, (False, True)):
                 if not keysym:
                     continue
