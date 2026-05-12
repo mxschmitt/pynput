@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+v1.8.2 (2026-05-12) - Include missing ``injected`` parameter on *macOS*
+-----------------------------------------------------------------------
+*  Add the ``injected`` argument where missing on *macOS*. Thanks to
+   *inchargeautomation-lab*!
+*  Do not emit duplicate scroll events on *Windows*. Thanks to *mxschmitt*!
+
+
 v1.8.1 (2025-03-17) - Various fixes
 -----------------------------------
 *  Remove incorrectly merged line for the *Xorg* backend. Thanks to *sphh*!
