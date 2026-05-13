@@ -273,12 +273,12 @@ class KeyboardControllerTest(EventTest):
         """Tests that events sent by a controller are received correctly"""
         with self.assert_event(
             'Failed to send press',
-            on_press=lambda k: getattr(k, 'char', None) == 'a',
+            on_press=lambda k, injected: getattr(k, 'char', None) == 'a',
         ):
             self.controller.press('a')
         with self.assert_event(
             'Failed to send release',
-            on_release=lambda k: getattr(k, 'char', None) == 'a',
+            on_release=lambda k, injected: getattr(k, 'char', None) == 'a',
         ):
             self.controller.release('a')
 

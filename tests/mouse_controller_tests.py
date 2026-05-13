@@ -98,7 +98,9 @@ class MouseControllerTest(EventTest):
         for b in (pynput.mouse.Button.left, pynput.mouse.Button.right):
             with self.assert_event(
                 'Failed to send press event',
-                on_click=lambda x, y, button, pressed: button == b and pressed,
+                on_click=lambda x, y, button, pressed, injected: (
+                    button == b and pressed
+                ),
             ):
                 self.controller.press(b)
             self.controller.release(b)
@@ -109,7 +111,7 @@ class MouseControllerTest(EventTest):
             self.controller.press(b)
             with self.assert_event(
                 'Failed to send release event',
-                on_click=lambda x, y, button, pressed: (
+                on_click=lambda x, y, button, pressed, injected: (
                     button == b and not pressed
                 ),
             ):
@@ -119,7 +121,8 @@ class MouseControllerTest(EventTest):
         """Tests that moving left works"""
         ox, oy = self.controller.position
         with self.assert_event(
-            'Failed to send move left event', on_move=lambda x, y: x < ox
+            'Failed to send move left event',
+            on_move=lambda x, y, injected: x < ox,
         ):
             self.assert_movement('Pointer did not move', (-1, 0))
 
@@ -127,7 +130,8 @@ class MouseControllerTest(EventTest):
         """Tests that moving right works"""
         ox, oy = self.controller.position
         with self.assert_event(
-            'Failed to send move right event', on_move=lambda x, y: x > ox
+            'Failed to send move right event',
+            on_move=lambda x, y, injected: x > ox,
         ):
             self.assert_movement('Pointer did not move', (1, 0))
 
@@ -135,7 +139,8 @@ class MouseControllerTest(EventTest):
         """Tests that moving up works"""
         ox, oy = self.controller.position
         with self.assert_event(
-            'Failed to send move up event', on_move=lambda x, y: y < oy
+            'Failed to send move up event',
+            on_move=lambda x, y, injected: y < oy,
         ):
             self.assert_movement('Pointer did not move', (0, -1))
 
@@ -143,7 +148,8 @@ class MouseControllerTest(EventTest):
         """Tests that moving down works"""
         ox, oy = self.controller.position
         with self.assert_event(
-            'Failed to send move down event', on_move=lambda x, y: y > oy
+            'Failed to send move down event',
+            on_move=lambda x, y, injected: y > oy,
         ):
             self.assert_movement('Pointer did not move', (0, 1))
 
@@ -153,7 +159,7 @@ class MouseControllerTest(EventTest):
             events = [True, False]
             events.reverse()
 
-            def on_click(x, y, button, pressed):
+            def on_click(x, y, button, pressed, injected):
                 if button == b:
                     self.assertEqual(pressed, events.pop(), 'Unexpected event')
                 return len(events) == 0
@@ -167,7 +173,7 @@ class MouseControllerTest(EventTest):
         """Tests that scrolling up works"""
         with self.assert_event(
             'Failed to send scroll up event',
-            on_scroll=lambda x, y, dx, dy: dy > 0,
+            on_scroll=lambda x, y, dx, dy, injected: dy > 0,
         ):
             self.controller.scroll(0, 1)
 
@@ -175,6 +181,6 @@ class MouseControllerTest(EventTest):
         """Tests that scrolling down works"""
         with self.assert_event(
             'Failed to send scroll down event',
-            on_scroll=lambda x, y, dx, dy: dy < 0,
+            on_scroll=lambda x, y, dx, dy, injected: dy < 0,
         ):
             self.controller.scroll(0, -1)
